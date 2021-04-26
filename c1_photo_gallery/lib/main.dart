@@ -1,3 +1,4 @@
+import 'package:c1_photo_gallery/src/views/FrameGridComponent.dart';
 import 'package:c1_photo_gallery/src/views/frame.dart';
 import 'package:flutter/material.dart';
 
@@ -11,7 +12,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      home: FrameComponent(),
+      home: FrameGridComponent(),
     );
   }
 }

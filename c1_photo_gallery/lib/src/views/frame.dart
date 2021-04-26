@@ -22,7 +22,7 @@ class FrameComponent extends StatelessWidget {
             children: [
               Text(
                 "Roadtrip".toUpperCase(),
-                style: GoogleFonts.biryani(color: Colors.white, fontSize: 20, decoration: TextDecoration.none, shadows: [
+                style: GoogleFonts.biryani(color: Colors.white, fontSize: 8, decoration: TextDecoration.none, shadows: [
                   Shadow(
                     offset: Offset(0, 0),
                     blurRadius: 15.0,
@@ -32,7 +32,7 @@ class FrameComponent extends StatelessWidget {
               ),
               Text(
                 "Kanada".toUpperCase(),
-                style: GoogleFonts.biryani(color: Colors.white, fontSize: 40, decoration: TextDecoration.none, shadows: [
+                style: GoogleFonts.biryani(color: Colors.white, fontSize: 15, decoration: TextDecoration.none, shadows: [
                   Shadow(
                     offset: Offset(0, 0),
                     blurRadius: 15.0,
