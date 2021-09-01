@@ -1,5 +1,8 @@
 import 'package:c3_online_shop_ui/constants.dart';
+import 'package:c3_online_shop_ui/models/Product.dart';
+import 'package:c3_online_shop_ui/screens/home/components/categories.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class Body extends StatelessWidget {
   @override
@@ -17,65 +20,62 @@ class Body extends StatelessWidget {
                 .copyWith(fontWeight: FontWeight.bold),
           ),
         ),
-        Categories()
+        Categories(),
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
+            child: GridView.builder(
+              itemCount: products.length,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: 0.75,
+                  mainAxisSpacing: kDefaultPadding,
+                  crossAxisSpacing: kDefaultPadding),
+              itemBuilder: (context, index) => ItemCard(
+                product: products[index],
+              ),
+            ),
+          ),
+        )
       ],
     );
   }
 }
 
-class Categories extends StatefulWidget {
-  @override
-  _CategoriesState createState() => _CategoriesState();
-}
+class ItemCard extends StatelessWidget {
+  final Product product;
+  final Function press;
 
-class _CategoriesState extends State<Categories> {
-  List<String> categories = ["Hand bag", "Jewellery", "Footwear", "Dresses"];
-
-  // Default value
-  int selectedIndex = 0;
+  const ItemCard({
+    Key key,
+    this.product,
+    this.press,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: kDefaultPadding),
-      child: SizedBox(
-        height: 25,
-        child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: categories.length,
-          itemBuilder: (context, index) => buildCategory(index),
-        ),
-      ),
-    );
-  }
-
-  Widget buildCategory(int index) {
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          selectedIndex = index;
-        });
-      },
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              categories[index],
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: selectedIndex == index ? kTextColor : kTextLightColor),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(
+          child: Container(
+            padding: EdgeInsets.all(kDefaultPadding),
+            decoration: BoxDecoration(
+              color: product.color,
+              borderRadius: BorderRadius.circular(16),
             ),
-            Container(
-              margin: EdgeInsets.only(top: kDefaultPadding / 4),
-              height: 2,
-              width: 30,
-              color: selectedIndex == index ? Colors.black : Colors.transparent,
-            )
-          ],
+            child: Image.asset(product.image),
+          ),
         ),
-      ),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: kDefaultPadding / 4),
+          child: Text(
+            product.title,
+            style: TextStyle(color: kTextColor),
+          ),
+        ),
+        Text("\$${product.price}", style: TextStyle(fontWeight: FontWeight.bold)),
+      ],
     );
   }
 }
